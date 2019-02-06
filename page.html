@@ -1,0 +1,215 @@
+<!DOCTYE html>
+<html>
+    <head>
+        <title>Super Cellular Simulator 2016</title>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="forme.css" />
+    </head>
+    <body>
+        <ul id="navigation_bar">
+          <li id="navigation_item"><a class="active" href="#menu_generer">Simulateur</a></li>
+          <li id="navigation_item"><a  href="#script_zone">Editeur de script</a></li>
+          <li id="navigation_item"><a href="#aide">Aide</a></li>
+          <li id="navigation_item"><a href="#aPropos">A propos</a></li>
+          <li id="navigation_item"><a href="https://fr.wikipedia.org/wiki/Automate_cellulaire">Les automates cellulaires</a></li>
+        </ul>
+        <div id="page">
+
+        <h1>Super Cellular Automat Simulator 2016</h1>
+        <p>Cette page vous permet de simuler divers automates cellulaires,et meme de creer les votres ! </br>A vous d'experimenter.</p>
+            <div id="page_content">
+                <div id="zone_canvas">
+                    <div id="menu_generer">
+                        <text>Choisissez votre automate : </text>
+                        <select name="gridType" id="gridTypeInput" onChange="generer()"></select>
+                        <label>taille X : </label>
+                        <input id="sizeXInput" type="number" value="10"></input>   
+                        <label>taille Y : </label>
+                        <input id="sizeYInput" type="number" value="10"></input>
+                        <button id="generateur" type="button" onClick="generer()" >Generer</button>    
+                    </div>
+                    <canvas id="canvas" width="600" height="600">
+                        Vous ne supportez pas le canvas
+                    </canvas>
+                </div>
+                <div id="menu_canvas">
+                    <p>
+                        <label><strong>Menu :</strong></br></label>
+                        <input id="vitesseInput" type="number" value="1000">vitesse(en ms)</input>
+                        <button id="launcher" type="button" onClick="lancer()">lancer</button>
+                        <button id="button_clear" type="button" onClick="effacer()">effacer</button>
+                        <button id="printGrid" type="button" onClick="printGridFunc()">Enlever la grille</button>
+                    </p>
+
+                    <p>
+                        <button id="button_aleat" type="button" onClick="ALEAT()">aleatoire</button>
+                        <input id="seuilInput" type="range" value="0" min="0" max="100">Seuil</input>
+                    </p>
+                    <p>
+                            <button id="goToGeneraitonButton" type="button" onClick="passer()">Passer</button>
+                            <input id="goToGenerationInput" type="number"> generations</input>
+                    </p>
+                    <p>           
+                        <label>Clique : </label>
+                        <select name="ClickInput : " id="clickTypeInput" onChange="updateList()">
+                            <option>Automate</option>
+                            <option>Forme</option>
+                        </select>
+                        <select name="ClickInput : " id="clickAutomatInput"></select>
+                    </p>
+                    <p>
+                        <p id="DESCRIPTION"></p>
+                    </p>
+                </div>
+            </div>
+            <div id="script_zone">  
+                    <text>Enregistreur de forme : </text>
+                    <div id="menu_generer">
+                        <text>Nom : </text>
+                        <input id="nomInput" type="text" value="NOM"></input> 
+
+                        <label>Pos X1 : </label>
+                        <input id="posX1Input" type="number" value="0"></input>   
+                        <label>Pos Y1 : </label>
+                        <input id="posY1Input" type="number" value="0"></input>  
+
+                        <label>Pos X2 : </label>
+                        <input id="posX2Input" type="number" value="0"></input>   
+                        <label>Pos Y2 : </label>
+                        <input id="posY2Input" type="number" value="0"></input>  
+
+                    </div>
+                    <button id="buttonScript" type="button" onClick="lancer_enregistrer()">enregistrement</button>    
+
+
+                     <textarea name="SCIRPT" id="zoneJava" rows="10" cols="100" readonly="readonly"></textarea>
+
+
+                    <div id="bouton_enregistrement">
+                    <button id="buttonScript" type="button" onClick="enregistrer()">Enregistrer</button>
+                    <button id="buttonScript" type="button" onClick="genererJava()">generer le code javascript</button>
+                        </div>
+                    <text><strong>Editeur de script :</strong></br></text>
+                     <textarea name="SCIRPT" id="ZoneText" rows="50" cols="100"></textarea>
+                    <button id="buttonScript" type="button" onClick="executeCodeZone()">Excecuter</button>
+
+
+            </div>
+            <div id="aide">
+                <h id="aide_titre">Menu d'aide</h>
+                <p>
+                    <text id="aide_text">Bienvenue dans le menu d'aide ! Ce menu est la pour vous aider !</text>
+                </p>
+                    <ul id="aide_bar">
+                      <li id="aide_item"><a href="#aide_simulateur">Aide pour le simulateur</a></li>
+                      <li id="aide_item"><a href="#aide_script">Aide pour l'editeur de script</a></li>
+                    </ul>
+                <p>
+                    <text id="aide_simulateur"></br></br>Aide du simulateur </br></text>
+                    <text id="aide_simulateur">Le simulateur est compose de plusieurs partie : </br></text>
+                    <ul >
+                      <li >Menu de generation de la grille, choisissez votre type d'automate, la taille hoziontale et verticale de la grille puis appuye sur "Generer" pour generer la grille</li>
+                      <li > grille, la grille permet de visualiser la simulation, le clic gauche de la souris permet d'interagir avec en changeant la case selectionne par celle choisit dans les options de gestions</li>
+                      <li > option de gestion de la simulation, ce menu vous permet de gerer :</li>
+                        <ul>
+                            <li>La vitesse de la simulation en seconde</li>
+                            <li>De generer les cases de la grille de facon aleatoire en fonction du seuil</li>
+                            <li>D'effacer les cases de la grille</li>
+                            <li>De passer "X" generation de la simulation pour atteindre une generation voulue</li>
+                            <li>De choisir le type de case qu'impose le clic gauche de la souris sur la grille</li>
+                            <li>Une description de l'automate choisit, son nom, ses regles et un lien plus de precision</li>
+                        </ul>
+                    </ul> 
+                </p>
+                <p>
+                    <text>Aide Script : </br>Le module de script vous permet de creer vos propre automate en utilsant le langage javascript (<a href="https://openclassrooms.com/courses/apprenez-a-coder-avec-javascript">plus d'information sur ce langage</a>) </br></text>
+                    <text id="aide_script">Le script doit contenir : </text>
+                    <ul >
+                      <li >Une fonction de mise jour de l'automate</li>
+                      <li >Une fonction de generation aleaoire de la grille pour votre automate</li>
+                        <li>Une definition de ses differents etats (nom,couleur,valeur)</li>
+                        <li>Le nom de votre automate</li>
+                        <li>Une description</li>
+                    </ul>
+                    <text>Pour vous montrer une organisation de code voici un example : </br></text>
+
+                        <text></br>Fonction d'aleatoire : </text>
+<textarea id="exemple" readonly="readonly" rows="11" >function aleatWireWorld()//cete fonction ne fait que remplir la grille avec des cases vides
+{
+    for(var i = 0;i<mainGrid.sizeX;i++)
+        {
+            for(var j = 0;j<mainGrid.sizeY;j++)
+                {
+                    var STATE = "VIDE";
+                    changeCase(i,j,mainGrid,STATE)
+                }
+        }  
+}</textarea>
+<text></br>Fonction de mise a jour : </text>
+
+<textarea id="exemple" readonly="readonly" rows="34">function updateAsWireWorld()//cette fonction suit les regles de l'automate Wireworld
+{
+    
+    gridNext = clone(mainGrid);
+      for(var i = 0;i<mainGrid.sizeX;i++)
+    {
+        for(var j=0;j<mainGrid.sizeY;j++)
+        {
+           var sum = 0;
+            var s = getState(i,j,mainGrid);
+            if(s!=0)
+                {
+            if(getState(i,j,mainGrid) == "CONDUCTEUR")
+                {
+                    sum = nbVoisin(i,j,mainGrid,"TETE");
+                    if(sum == 1 || sum==2)
+                        {
+                            changeCase(i,j,gridNext,"TETE");
+                        }
+                }
+            if(getState(i,j,mainGrid) == "TETE")
+                {
+                            changeCase(i,j,gridNext,"QUEUE");
+                }
+            if(getState(i,j,mainGrid) == "QUEUE")
+                {
+                            changeCase(i,j,gridNext,"CONDUCTEUR");
+                }
+                    
+                }
+        }
+    }
+    mainGrid = clone(gridNext);
+}</textarea>
+<text></br>Description de l'automate : </text>
+<textarea id="exemple" readonly="readonly" rows="8">
+    var tempW = ["VIDE","CONDUCTEUR","TETE","QUEUE"];//tableau des noms d'etats de l'automate
+    var tempColorW = ["rgba(255,255,255,255)","rgba(0,255,0,255)","rgba(0,0,255,255)","rgba(255,0,0,255)"];//tableau des couleurs pour chaque etats (dans l'ordre de leurs definition dans leurs tableau)
+    var tempValueW = [0,0,1,0];//tableau des valeurs pour chaque etats (dans l'ordre de leurs definition dans leurs tableau)
+    var nameW="wire world";//nom de l'automate
+    var descriptionW = "Une description...";//description de l'automate
+    gridDescriptionList[nameW] = new gridDescription(updateAsWireWorld,aleatWireWorld,tempW,tempColorW,tempValueW,nameW,descriptionW);//enregistrement de la description de l'automate
+    addGridType(nameW); </textarea>
+
+                </p>
+            </div>
+            <div id="aPropos">
+                <h id="aide_titre"></br></br>A propos de la page :</h>
+                <p>
+                    <text>Ce site web a ete creer lors d'un projet d'option en informatique de PeiP2 par : </text>
+                    <ul >
+                      <li ><a>Nicolas Cuadros</a></li>
+                      <li ><a>Thomas Daumain</a></li>
+                    </ul>  
+                    <text>Cette page a pour but d'experimenter les possibilites du javascript dans le cadre d'interaction avec un utilisateur.</br></text>
+                    <text>Annee 2016, a Polytech Paris Sud</text>
+                        <a href="http://www.polytech.u-psud.fr/fr/index.html"><image src="logo.jpg" id="logo"></image></a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
